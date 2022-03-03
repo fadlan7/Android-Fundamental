@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Fadlan/Documents/BANGKIT_2022_MOBILE_DEVELOPMENT/Belajar_Fundamental_Aplikasi_Android/SUBMISSION/Submission1/GithubUserApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/Fadlan/Documents/BANGKIT_2022_MOBILE_DEVELOPMENT/Belajar_Fundamental_Aplikasi_Android/SUBMISSION/Submission1/GithubUserApp/app/src/main/res/drawable/ic_baseline_location_on_24_black.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/Fadlan/Documents/BANGKIT_2022_MOBILE_DEVELOPMENT/Belajar_Fundamental_Aplikasi_Android/SUBMISSION/Submission1/GithubUserApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/Fadlan/Documents/BANGKIT_2022_MOBILE_DEVELOPMENT/Belajar_Fundamental_Aplikasi_Android/SUBMISSION/Submission1/GithubUserApp/app/src/main/res/layout/activity_main.xml" value="0.2111111111111111" />
-        <entry key="..\:/Users/Fadlan/Documents/BANGKIT_2022_MOBILE_DEVELOPMENT/Belajar_Fundamental_Aplikasi_Android/SUBMISSION/Submission1/GithubUserApp/app/src/main/res/layout/users_list.xml" value="0.18997361477572558" />
+        <entry key="..\:/Users/Fadlan/Documents/BANGKIT_2022_MOBILE_DEVELOPMENT/Belajar_Fundamental_Aplikasi_Android/SUBMISSION/Submission1/GithubUserApp/app/src/main/res/layout/users_list.xml" value="0.1" />
       </map>
     </option>
   </component>
