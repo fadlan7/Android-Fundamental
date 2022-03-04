@@ -6,6 +6,12 @@
     <string name="username_dummy">Username</string>
     <string name="users_images">User Images</string>
     <string name="location_dummy">Location</string>
+    <string name="followersNumber_dummy">20</string>
+    <string name="followingNumber_dummy">20</string>
+    <string name="repositoryNumber_dummy">20</string>
+    <string name="followers_title">Followers</string>
+    <string name="following_title">Following</string>
+    <string name="repository_title">Repository</string>
 
     <string-array name="username">
         <item>JakeWharton</item>
