@@ -1,8 +1,11 @@
 package com.fadlan.githubuserapp
 
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -38,8 +41,24 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun showRecyclerList(){
-        rvUsers.layoutManager = LinearLayoutManager(this)
+        rvUsers.layoutManager = GridLayoutManager(this,2)
         val listUserAdapter = UserListAdapter(list)
         rvUsers.adapter = listUserAdapter
+
+        if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            rvUsers.layoutManager = GridLayoutManager(this, 2)
+        } else {
+            rvUsers.layoutManager = LinearLayoutManager(this)
+        }
+
+        listUserAdapter.setOnItemClickCallback(object : UserListAdapter.OnItemClickCallback{
+            override fun onItemClicked(data: User) {
+                showSelectedUser(data)
+            }
+        })
+    }
+
+    private fun showSelectedUser(user: User) {
+        Toast.makeText(this, "Kamu memilih " + user.fullName, Toast.LENGTH_SHORT).show()
     }
 }
