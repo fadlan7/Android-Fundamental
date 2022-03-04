@@ -12,6 +12,8 @@
     <string name="followers_title">Followers</string>
     <string name="following_title">Following</string>
     <string name="repository_title">Repository</string>
+    <string name="location_icon">location_icon</string>
+    <string name="company_icon">company_icon</string>
 
     <string-array name="username">
         <item>JakeWharton</item>

@@ -62,10 +62,6 @@ class MainActivity : AppCompatActivity(){
         listUserAdapter.setOnItemClickCallback(object : UserListAdapter.OnItemClickCallback{
             override fun onItemClicked(data: User) {
                 showSelectedUser(data)
-
-//                val intentToDetail = Intent(this@MainActivity, UserDetailPage::class.java)
-//                intentToDetail.putExtra("fullName", data)
-//                startActivity(intentToDetail)
             }
         })
     }
