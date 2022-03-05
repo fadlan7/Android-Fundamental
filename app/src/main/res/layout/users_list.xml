@@ -12,7 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:background="@color/cardBg">
 
         <de.hdodenhof.circleimageview.CircleImageView
             style="@style/user_photo"
@@ -46,15 +47,17 @@
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_baseline_location_on_24_black"
             card_view:layout_constraintStart_toEndOf="@+id/iv_users_photo"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_username" />
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_username"
+            card_view:tint="@color/black" />
 
         <TextView
             android:id="@+id/tv_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="3dp"
             android:textSize = "14sp"
+            android:textColor="@color/black"
             card_view:layout_constraintStart_toEndOf="@+id/imageView"
             card_view:layout_constraintTop_toTopOf="@+id/imageView"
             tools:text="@string/location_dummy" />

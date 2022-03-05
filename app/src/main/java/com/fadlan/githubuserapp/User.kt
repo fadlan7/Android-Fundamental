@@ -10,7 +10,7 @@ data class User(
     var photo: Int,
     var location: String,
     var repository: String,
-    var company: String,
+    var following: String,
     var followers: String,
-    var following: String
+    var company: String
 ) : Parcelable

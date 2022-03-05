@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <RelativeLayout
-        style="@style/rlDetail"
         android:id="@+id/relative1"
+        style="@style/rlDetail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,13 +31,13 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/detailNumber"
                 android:id="@+id/tv_repoNumber"
+                style="@style/detailNumber"
                 tools:text="@string/repositoryNumber_dummy" />
 
             <TextView
-                style="@style/titleNumber"
                 android:id="@+id/tv_repoTitle"
+                style="@style/titleNumber"
                 android:text="@string/repository_title" />
         </LinearLayout>
 
@@ -51,13 +52,13 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/detailNumber"
                 android:id="@+id/tv_followersNumber"
+                style="@style/detailNumber"
                 tools:text="@string/followersNumber_dummy" />
 
             <TextView
-                style="@style/titleNumber"
                 android:id="@+id/tv_followersTitle"
+                style="@style/titleNumber"
                 android:text="@string/followers_title" />
         </LinearLayout>
 
@@ -72,14 +73,14 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/detailNumber"
                 android:id="@+id/tv_followingNumber"
+                style="@style/detailNumber"
                 tools:text="@string/followingNumber_dummy" />
 
             <TextView
-                style="@style/titleNumber"
                 android:id="@+id/tv_followingTitle"
-                android:text="@string/following_title"/>
+                style="@style/titleNumber"
+                android:text="@string/following_title" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -92,8 +93,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -116,42 +115,56 @@
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginTop="16dp">
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center">
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:padding="4dp">
 
                     <ImageView
                         android:id="@+id/img_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/location_icon"
-                        android:src="@drawable/ic_baseline_location_on_24_black" />
+                        android:src="@drawable/ic_baseline_location_on_24_black"
+                        app:tint="@color/black" />
 
                     <TextView
                         android:id="@+id/tv_location"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
                         android:textSize="14sp"
                         tools:text="@string/location_dummy" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:padding="4dp">
 
                     <ImageView
                         android:id="@+id/img_company"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         android:contentDescription="@string/company_icon"
-                        android:src="@drawable/ic_baseline_work_24" />
+                        android:src="@drawable/ic_baseline_work_24"
+                        app:tint="@color/black" />
 
                     <TextView
                         android:id="@+id/tv_company"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
                         android:textSize="14sp"
                         tools:text="@string/location_dummy" />
                 </TableRow>

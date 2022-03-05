@@ -15,18 +15,18 @@ class MainActivity : AppCompatActivity(){
 
     private lateinit var rvUsers: RecyclerView
     private val list = ArrayList<User>()
-    private val title: String  = "GitHub User"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        supportActionBar?.title = "GitHub User"
 
         rvUsers = findViewById(R.id.rv_users)
         rvUsers.setHasFixedSize(true)
 
         list.addAll(listUsers)
         showRecyclerList()
-        setActionBarTitle(title)
     }
 
     private val listUsers: ArrayList<User>
@@ -72,9 +72,4 @@ class MainActivity : AppCompatActivity(){
         intentToDetail.putExtra(UserDetailActivity.EXTRA_USER, user)
         startActivity(intentToDetail)
     }
-
-    private fun setActionBarTitle(title: String) {
-        supportActionBar?.title = title
-    }
-
 }

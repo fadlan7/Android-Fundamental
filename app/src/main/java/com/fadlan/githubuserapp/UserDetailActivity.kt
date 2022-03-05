@@ -27,18 +27,11 @@ class UserDetailActivity : AppCompatActivity() {
             tvUsername.text = user.userName
             tvRepoNumber.text = user.repository
             tvFollowersNumber.text = user.followers
-//            tvCompany.text = user.company
-            tvCompany.text = user.following
-//            tvFollowingNumber.text = user.following
-            tvFollowingNumber.text = user.company
+            tvCompany.text = user.company
+            tvFollowingNumber.text = user.following
             tvLocation.text = user.location
             ivUsersPhoto.setImageResource(user.photo)
         }
-
-        actionBarTitle(user.fullName)
-    }
-
-    private fun actionBarTitle(title: String) {
-        supportActionBar?.title = title
+        supportActionBar?.title = user.fullName
     }
 }
