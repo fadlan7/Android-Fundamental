@@ -5,14 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <RelativeLayout
+        style="@style/rlDetail"
         android:id="@+id/relative1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -35,18 +30,13 @@
             android:orientation="vertical">
 
             <TextView
+                style="@style/detailNumber"
                 android:id="@+id/tv_repoNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textStyle="bold"
                 tools:text="@string/repositoryNumber_dummy" />
 
             <TextView
+                style="@style/titleNumber"
                 android:id="@+id/tv_repoTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:text="@string/repository_title" />
         </LinearLayout>
 
@@ -61,18 +51,13 @@
             android:orientation="vertical">
 
             <TextView
+                style="@style/detailNumber"
                 android:id="@+id/tv_followersNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textStyle="bold"
                 tools:text="@string/followersNumber_dummy" />
 
             <TextView
+                style="@style/titleNumber"
                 android:id="@+id/tv_followersTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:text="@string/followers_title" />
         </LinearLayout>
 
@@ -87,28 +72,19 @@
             android:orientation="vertical">
 
             <TextView
+                style="@style/detailNumber"
                 android:id="@+id/tv_followingNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textStyle="bold"
                 tools:text="@string/followingNumber_dummy" />
 
             <TextView
+                style="@style/titleNumber"
                 android:id="@+id/tv_followingTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:text="@string/following_title"/>
         </LinearLayout>
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        style="@style/rlDetail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/relative1">
@@ -142,6 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp">
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -151,8 +128,8 @@
                         android:id="@+id/img_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_location_on_24_black"
-                        android:contentDescription="@string/location_icon" />
+                        android:contentDescription="@string/location_icon"
+                        android:src="@drawable/ic_baseline_location_on_24_black" />
 
                     <TextView
                         android:id="@+id/tv_location"
@@ -167,8 +144,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:src="@drawable/ic_baseline_work_24"
-                        android:contentDescription="@string/company_icon" />
+                        android:contentDescription="@string/company_icon"
+                        android:src="@drawable/ic_baseline_work_24" />
 
                     <TextView
                         android:id="@+id/tv_company"
@@ -181,6 +158,4 @@
             </TableLayout>
         </LinearLayout>
     </RelativeLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
