@@ -1,11 +1,85 @@
 package com.fadlan.githubuserapp
 
+import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.fadlan.githubuserapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var rvUsers: RecyclerView
+    private val list = ArrayList<User>()
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        supportActionBar?.title = "GitHub User"
+
+        rvUsers = binding.rvUsers
+        rvUsers.setHasFixedSize(true)
+
+        list.addAll(listUsers)
+        showRecyclerList()
+    }
+
+    private val listUsers: ArrayList<User>
+        get() {
+            val dataFullName = resources.getStringArray(R.array.name)
+            val dataUsername = resources.getStringArray(R.array.username)
+            val dataPhoto = resources.obtainTypedArray(R.array.avatar)
+            val dataLocation = resources.getStringArray(R.array.location)
+            val dataRepository = resources.getStringArray(R.array.repository)
+            val dataFollowers = resources.getStringArray(R.array.followers)
+            val dataFollowing = resources.getStringArray(R.array.following)
+            val dataCompany = resources.getStringArray(R.array.company)
+            val listUser = ArrayList<User>()
+
+            for (i in dataFullName.indices) {
+                val user = User(
+                    dataFullName[i],
+                    dataUsername[i],
+                    dataPhoto.getResourceId(i, -1),
+                    dataLocation[i],
+                    dataRepository[i],
+                    dataFollowers[i],
+                    dataFollowing[i],
+                    dataCompany[i]
+                )
+                listUser.add(user)
+            }
+            return listUser
+        }
+
+    private fun showRecyclerList() {
+        rvUsers.layoutManager = GridLayoutManager(this, 2)
+        val listUserAdapter = UserListAdapter(list)
+        rvUsers.adapter = listUserAdapter
+
+        if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            rvUsers.layoutManager = GridLayoutManager(this, 2)
+        } else {
+            rvUsers.layoutManager = LinearLayoutManager(this)
+        }
+
+        listUserAdapter.setOnItemClickCallback(object : UserListAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: User) {
+                showSelectedUser(data)
+            }
+        })
+    }
+
+    private fun showSelectedUser(user: User) {
+        Toast.makeText(this, "Kamu memilih " + user.fullName, Toast.LENGTH_SHORT).show()
+        val intentToDetail = Intent(this@MainActivity, UserDetailActivity::class.java)
+        intentToDetail.putExtra(UserDetailActivity.EXTRA_USER, user)
+        startActivity(intentToDetail)
     }
 }
