@@ -45,12 +45,12 @@
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="rlDetail">
-        <item name="android:layout_width">match_parent</item>
+    <style name="linearRepoFoll">
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginTop">16dp</item>
-        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
     </style>
 
     <style name="detailNumber">
