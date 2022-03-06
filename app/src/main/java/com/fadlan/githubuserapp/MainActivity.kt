@@ -4,25 +4,26 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fadlan.githubuserapp.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     private lateinit var rvUsers: RecyclerView
     private val list = ArrayList<User>()
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.title = "GitHub User"
 
-        rvUsers = findViewById(R.id.rv_users)
+        rvUsers = binding.rvUsers
         rvUsers.setHasFixedSize(true)
 
         list.addAll(listUsers)
@@ -42,14 +43,23 @@ class MainActivity : AppCompatActivity(){
             val listUser = ArrayList<User>()
 
             for (i in dataFullName.indices) {
-                val user = User(dataFullName[i], dataUsername[i], dataPhoto.getResourceId(i, -1), dataLocation[i], dataRepository[i], dataFollowers[i], dataFollowing[i], dataCompany[i])
+                val user = User(
+                    dataFullName[i],
+                    dataUsername[i],
+                    dataPhoto.getResourceId(i, -1),
+                    dataLocation[i],
+                    dataRepository[i],
+                    dataFollowers[i],
+                    dataFollowing[i],
+                    dataCompany[i]
+                )
                 listUser.add(user)
             }
             return listUser
         }
 
-    private fun showRecyclerList(){
-        rvUsers.layoutManager = GridLayoutManager(this,2)
+    private fun showRecyclerList() {
+        rvUsers.layoutManager = GridLayoutManager(this, 2)
         val listUserAdapter = UserListAdapter(list)
         rvUsers.adapter = listUserAdapter
 
@@ -59,7 +69,7 @@ class MainActivity : AppCompatActivity(){
             rvUsers.layoutManager = LinearLayoutManager(this)
         }
 
-        listUserAdapter.setOnItemClickCallback(object : UserListAdapter.OnItemClickCallback{
+        listUserAdapter.setOnItemClickCallback(object : UserListAdapter.OnItemClickCallback {
             override fun onItemClicked(data: User) {
                 showSelectedUser(data)
             }

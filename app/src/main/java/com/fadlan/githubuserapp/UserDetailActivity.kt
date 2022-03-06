@@ -7,10 +7,6 @@ import com.fadlan.githubuserapp.databinding.ActivityUserDetailBinding
 
 class UserDetailActivity : AppCompatActivity() {
 
-    companion object {
-        const val EXTRA_USER = "extra_user"
-    }
-
     private lateinit var binding: ActivityUserDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,5 +29,9 @@ class UserDetailActivity : AppCompatActivity() {
             ivUsersPhoto.setImageResource(user.photo)
         }
         supportActionBar?.title = user.fullName
+    }
+
+    companion object {
+        const val EXTRA_USER = "extra_user"
     }
 }
