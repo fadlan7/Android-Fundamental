@@ -48,7 +48,8 @@
             android:src="@drawable/ic_baseline_location_on_24_black"
             card_view:layout_constraintStart_toEndOf="@+id/iv_users_photo"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_username"
-            card_view:tint="@color/black" />
+            card_view:tint="@color/black"
+            android:contentDescription="@string/location_icon" />
 
         <TextView
             android:id="@+id/tv_location"

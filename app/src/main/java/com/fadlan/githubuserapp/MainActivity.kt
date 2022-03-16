@@ -4,6 +4,8 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +30,23 @@ class MainActivity : AppCompatActivity() {
 
         list.addAll(listUsers)
         showRecyclerList()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.setting_menu -> {
+                val i = Intent(this, SettingActivity::class.java)
+                startActivity(i)
+                return true
+            }
+            else -> return true
+        }
     }
 
     private val listUsers: ArrayList<User>
