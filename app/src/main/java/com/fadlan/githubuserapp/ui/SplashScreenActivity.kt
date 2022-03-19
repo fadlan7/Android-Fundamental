@@ -1,9 +1,9 @@
-package com.fadlan.githubuserapp
+package com.fadlan.githubuserapp.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
+import com.fadlan.githubuserapp.MainActivity
 import com.fadlan.githubuserapp.databinding.ActivitySplashScreenBinding
 
 class SplashScreenActivity : AppCompatActivity() {

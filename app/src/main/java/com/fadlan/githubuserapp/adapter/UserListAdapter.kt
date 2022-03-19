@@ -1,15 +1,14 @@
-package com.fadlan.githubuserapp
+package com.fadlan.githubuserapp.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.fadlan.githubuserapp.User
 import com.fadlan.githubuserapp.databinding.UsersListBinding
-import org.w3c.dom.CharacterData
-import org.w3c.dom.Text
+import com.fadlan.githubuserapp.ui.UserDetailActivity
 
 class UserListAdapter(private val listUser: ArrayList<User>) :
     RecyclerView.Adapter<UserListAdapter.ListViewHolder>() {

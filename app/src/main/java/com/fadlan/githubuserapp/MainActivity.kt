@@ -6,14 +6,20 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fadlan.githubuserapp.databinding.ActivityMainBinding
 import androidx.appcompat.widget.SearchView
+import com.fadlan.githubuserapp.adapter.UserListAdapter
+import com.fadlan.githubuserapp.ui.SettingActivity
+import com.fadlan.githubuserapp.ui.UserDetailActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var rvUsers: RecyclerView
     private val list = ArrayList<User>()
     private lateinit var binding: ActivityMainBinding
+//    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,26 +47,54 @@ class MainActivity : AppCompatActivity() {
         val inflater = menuInflater
         inflater.inflate(R.menu.option_menu, menu)
 
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = menu.findItem(R.id.search).actionView as SearchView
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchView.queryHint = resources.getString(R.string.search_hint)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
-                searchView.clearFocus()
-                return true
-            }
-            override fun onQueryTextChange(newText: String): Boolean {
-                return false
-            }
-        })
-
+//        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+//        val searchView = menu.findItem(R.id.search).actionView as SearchView
+//
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+//        searchView.queryHint = resources.getString(R.string.search_hint)
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String): Boolean {
+//                Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
+//                searchView.clearFocus()
+//                return true
+//            }
+//            override fun onQueryTextChange(newText: String): Boolean {
+//                return false
+//            }
+//        })
         return true
     }
 
+    fun searchUser() {
+        binding.searchView.setOnKeyListener { _, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN &&
+                keyCode == KeyEvent.KEYCODE_ENTER
+            ) {
+                if (binding.searchView.text?.length == 0) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        resources.getString(R.string.search_blank),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnKeyListener false
+                } else {
+                    binding.searchView.apply {
+                        this.clearFocus()
+                        val imm: InputMethodManager = getSystemService(
+                            INPUT_METHOD_SERVICE
+                        ) as InputMethodManager
+                        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
+                    }
+//                    viewModel.getSearchResult(binding.searchView.text.toString())
+                    return@setOnKeyListener true
+                }
+            }
+            return@setOnKeyListener false
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.setting_menu -> {
                 val i = Intent(this, SettingActivity::class.java)
                 startActivity(i)
