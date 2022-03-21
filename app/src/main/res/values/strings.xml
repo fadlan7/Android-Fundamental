@@ -15,6 +15,16 @@
     <string name="location_icon">location_icon</string>
     <string name="company_icon">company_icon</string>
     <string name="github_logo">GitHub Logo</string>
+    <string name="setting_menu">Setting</string>
+    <string name="search">search</string>
+    <string name="search_hint">Masukan Nama</string>
+    <string name="search_blank">Nama Pengguna Tidak Boleh Kosong</string>
+    <string name="waiting_search_img">waiting search images</string>
+    <string name="waiting_search_head">Waiting to search!</string>
+    <string name="waiting_search_title">Search result will appear here</string>
+    <string name="oops">Ooops..</string>
+    <string name="something_wrong">Something went wrong, please try again later</string>
+    <string name="user_not_found">User not found.</string>
 
     <string-array name="username">
         <item>JakeWharton</item>
@@ -105,19 +115,6 @@
         <item>23</item>
         <item>61</item>
         <item>10</item>
-    </string-array>
-
-    <string-array name="avatar">
-        <item>@drawable/user1</item>
-        <item>@drawable/user2</item>
-        <item>@drawable/user3</item>
-        <item>@drawable/user4</item>
-        <item>@drawable/user5</item>
-        <item>@drawable/user6</item>
-        <item>@drawable/user7</item>
-        <item>@drawable/user8</item>
-        <item>@drawable/user9</item>
-        <item>@drawable/user10</item>
     </string-array>
 
 </resources>

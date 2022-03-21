@@ -1,8 +1,9 @@
-package com.fadlan.githubuserapp
+package com.fadlan.githubuserapp.ui
 
-import android.icu.text.CaseMap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.fadlan.githubuserapp.R
+import com.fadlan.githubuserapp.User
 import com.fadlan.githubuserapp.databinding.ActivityUserDetailBinding
 
 class UserDetailActivity : AppCompatActivity() {
