@@ -1,5 +1,6 @@
-package com.fadlan.githubuserapp.response
+package com.fadlan.githubuserapp.data.model
 
+import android.app.appsearch.SearchResult
 import com.google.gson.annotations.SerializedName
 
 data class SearchResponse(

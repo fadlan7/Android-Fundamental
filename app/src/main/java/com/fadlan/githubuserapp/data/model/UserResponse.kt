@@ -1,4 +1,4 @@
-package com.fadlan.githubuserapp.response
+package com.fadlan.githubuserapp.data.model
 
 import com.google.gson.annotations.SerializedName
 

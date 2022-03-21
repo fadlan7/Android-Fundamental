@@ -19,6 +19,8 @@
     <string name="search">search</string>
     <string name="search_hint">Masukan Nama</string>
     <string name="search_blank">Nama Pengguna Tidak Boleh Kosong</string>
+    <string name="waiting_search_img">waiting search images</string>
+    <string name="waiting_search_head">Waiting to search!</string>
 
     <string-array name="username">
         <item>JakeWharton</item>

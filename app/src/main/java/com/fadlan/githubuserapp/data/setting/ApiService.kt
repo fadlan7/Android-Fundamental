@@ -1,7 +1,6 @@
-package com.fadlan.githubuserapp.service
-import com.fadlan.githubuserapp.User
-import com.fadlan.githubuserapp.response.SearchResponse
-import com.fadlan.githubuserapp.response.UserResponse
+package com.fadlan.githubuserapp.data.setting
+import com.fadlan.githubuserapp.data.model.SearchResponse
+import com.fadlan.githubuserapp.data.model.UserResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -16,19 +15,19 @@ interface ApiService {
     //endpoint: (https://api.github.com/users/{username})
     @GET("users/{username}")
     fun getUser (
-        @Path("username")
+        @Path("login")
         username: String
     ): Call<UserResponse>
 
     @GET("users/{username}/followers")
     fun getUserFollowers (
-        @Path("username")
+        @Path("login")
         username: String
     ): Call<List<UserResponse>>
 
     @GET("users/{username}/following")
     fun getUserFollowing (
-        @Path("username")
+        @Path("login")
         username: String
     ): Call<List<UserResponse>>
 
