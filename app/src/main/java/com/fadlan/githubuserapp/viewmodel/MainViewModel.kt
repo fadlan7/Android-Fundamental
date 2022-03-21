@@ -1,12 +1,15 @@
 package com.fadlan.githubuserapp.viewmodel
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.fadlan.githubuserapp.R
 import com.fadlan.githubuserapp.data.model.SearchResponse
 import com.fadlan.githubuserapp.data.model.ItemsItem
 import com.fadlan.githubuserapp.data.setting.ApiConfig
+import com.fadlan.githubuserapp.databinding.ActivityMainBinding
 import retrofit2.Response
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,7 +19,7 @@ class MainViewModel : ViewModel() {
 
     val userData = MutableLiveData<List<ItemsItem>>()
     val load = MutableLiveData(View.GONE)
-    val illustration = MutableLiveData(View.VISIBLE)
+    val messageInfo = MutableLiveData(View.VISIBLE)
     val error = MutableLiveData<String>()
 
     fun getSearch(keyword: String) {
@@ -25,6 +28,7 @@ class MainViewModel : ViewModel() {
         val users = ApiConfig.getApiService().searchUsers(keyword)
 
         users.enqueue(object : Callback<SearchResponse> {
+            @SuppressLint("NullSafeMutableLiveData")
             override fun onResponse(
                 call: Call<SearchResponse>,
                 response: Response<SearchResponse>,
@@ -35,11 +39,11 @@ class MainViewModel : ViewModel() {
                     if (data?.totalCount == 0) {
                         // jika data tidak ditemukan -> set null, di activity akan diarahkan ke clear data (menghindari NPE)
                         userData.postValue(null)
-                        illustration.postValue(View.VISIBLE)
+                        messageInfo.postValue(View.VISIBLE)
                         error.postValue("Pengguna $keyword tidak ditemukan")
                     } else {
                         userData.postValue(data?.items)
-                        illustration.postValue(View.GONE)
+                        messageInfo.postValue(View.GONE)
                     }
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
@@ -48,6 +52,7 @@ class MainViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                load.postValue(View.GONE)
                 Log.e(TAG, "onFailure: ${t.message}")
                 error.postValue(t.message)
             }
