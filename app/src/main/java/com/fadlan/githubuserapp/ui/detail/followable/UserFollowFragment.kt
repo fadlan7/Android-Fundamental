@@ -1,11 +1,11 @@
-package com.fadlan.githubuserapp.ui.detail
+package com.fadlan.githubuserapp.ui.detail.followable
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.fadlan.githubuserapp.R
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.fadlan.githubuserapp.databinding.FragmentUserFollowBinding
 
 private const val NAME = "NAME"
@@ -18,7 +18,7 @@ class UserFollowFragment : Fragment() {
     private var name: String = "name"
     private var username: String = "username"
     private var location: String = "location"
-    private val rvAdapter = UserDetailAdapter()
+//    private val rvAdapter = UserDetailAdapter()
     private lateinit var binding: FragmentUserFollowBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,8 +34,20 @@ class UserFollowFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-       binding =
-        return inflater.inflate(R.layout.fragment_user_follow, container, false)
+        binding = FragmentUserFollowBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        binding.rvUsersFollow.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+//            isNestedScrollingEnabled = false
+//            adapter = rvAdapter
+        }
+
+        super.onViewCreated(view, savedInstanceState)
     }
 
     companion object {

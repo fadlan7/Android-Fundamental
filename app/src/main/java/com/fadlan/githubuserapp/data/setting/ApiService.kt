@@ -5,27 +5,19 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
-
-//    @GET("search/users")
-//    fun searchUsers (
-//        @Query("q")
-//        query: String
-//    ): Call<SearchResponse>
-
-    //endpoint: (https://api.github.com/users/{username})
-    @GET("users/{username}")
+    @GET("users/{login}")
     fun getUser (
         @Path("login")
         username: String
     ): Call<UserResponse>
 
-    @GET("users/{username}/followers")
+    @GET("users/{login}/followers")
     fun getUserFollowers (
         @Path("login")
         username: String
     ): Call<List<UserResponse>>
 
-    @GET("users/{username}/following")
+    @GET("users/{login}/following")
     fun getUserFollowing (
         @Path("login")
         username: String

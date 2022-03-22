@@ -23,12 +23,10 @@ import com.fadlan.githubuserapp.ui.main.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var rvUsers: RecyclerView
     private val userAdapter = UserListAdapter(this)
-
-    //    private val list = ArrayList<UserResponse>()
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
+    private val context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,11 +36,11 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = resources.getString(R.string.app_name)
 
         viewModel.apply {
-            load.observe(this@MainActivity, { binding.loadingBar.visibility = it })
-            messageInfo.observe(this@MainActivity, { binding.message.visibility = it })
-            error.observe(this@MainActivity, { sweetAlert(this@MainActivity, it) })
+            load.observe(context, { binding.loadingBar.visibility = it })
+            messageInfo.observe(context, { binding.message.visibility = it })
+            error.observe(context, { sweetAlert(context, it) })
 
-            userData.observe(this@MainActivity, { data ->
+            userData.observe(context, { data ->
                 userAdapter.apply {
                     // jika data search null -> tidak menampilkan apapun
                     if (data.isNullOrEmpty()) {
@@ -108,35 +106,6 @@ class MainActivity : AppCompatActivity() {
         inflater.inflate(R.menu.option_menu, menu)
         return true
     }
-
-//    fun searchUser() {
-//        binding.searchView.setOnKeyListener { _, keyCode, event ->
-//            if (event.action == KeyEvent.ACTION_DOWN &&
-//                keyCode == KeyEvent.KEYCODE_ENTER
-//            ) {
-//                if (binding.searchView.text?.length == 0) {
-//                    Toast.makeText(
-//                        this@MainActivity,
-//                        resources.getString(R.string.search_blank),
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                    return@setOnKeyListener false
-//                } else {
-//                    binding.searchView.apply {
-//                        this.clearFocus()
-//                        val imm: InputMethodManager = getSystemService(
-//                            INPUT_METHOD_SERVICE
-//                        ) as InputMethodManager
-//                        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
-//                    }
-//                    viewModel.getSearch(binding.searchView.text.toString())
-//                    return@setOnKeyListener true
-//                }
-//            }
-//            return@setOnKeyListener false
-//        }
-//    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.setting_menu -> {
@@ -148,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun sweetAlert(context: Context, message: String){
+    private fun sweetAlert(context: Context, message: String){
         SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
             .setTitleText("Oops...")
             .setContentText( message)

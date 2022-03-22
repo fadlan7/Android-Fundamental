@@ -3,13 +3,15 @@ package com.fadlan.githubuserapp.ui.main
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.fadlan.githubuserapp.databinding.UsersListBinding
+import com.fadlan.githubuserapp.R
 import com.fadlan.githubuserapp.data.model.ItemsItem
+import com.fadlan.githubuserapp.databinding.UsersListBinding
 import com.fadlan.githubuserapp.ui.detail.UserDetailActivity
 
 class UserListAdapter(private val context: Context) :
@@ -17,37 +19,21 @@ class UserListAdapter(private val context: Context) :
 
     private var userData = mutableListOf<ItemsItem>()
 
-//    private lateinit var onItemClickCallback: OnItemClickCallback
-//    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-//        this.onItemClickCallback = onItemClickCallback
-//    }
-
-    class ListViewHolder(var binding: UsersListBinding) : RecyclerView.ViewHolder(binding.root) {
-        var imgUser: ImageView = binding.ivUsersPhoto
-//        var fullName: TextView = binding.tvFullName
-        var userName: TextView = binding.tvUsername
-//        var location: TextView = binding.tvLocation
-    }
-
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ListViewHolder {
         val binding =
+//            LayoutInflater.from(viewGroup.context).inflate(R.layout.users_follow, viewGroup, false)
             UsersListBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
         return ListViewHolder(binding)
     }
 
+    class ListViewHolder(binding: UsersListBinding) : RecyclerView.ViewHolder(binding.root) {
+        var imgUser: ImageView = binding.ivUsersPhoto
+        var userName: TextView = binding.tvUsername
+    }
+
+
+
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-//        val (fullName, username, photo, location) = listUser[position]
-//        holder.apply {
-//            binding.ivUsersPhoto.setImageResource(photo)
-//            binding.tvFullName.text = fullName
-//            binding.tvUsername.text = username
-//            binding.tvLocation.text = location
-//            holder.itemView.setOnClickListener{
-//                onItemClickCallback.onItemClicked(listUser[holder.adapterPosition])
-//            }
-//        }
-//
-//        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[holder.adapterPosition]) }
         val data = userData[position]
         holder.apply {
             userName.text = data.login
@@ -55,7 +41,7 @@ class UserListAdapter(private val context: Context) :
             Glide.with(context)
                 .load(data.avatarUrl)
                 .circleCrop()
-                .into(binding.ivUsersPhoto)
+                .into(imgUser)
 
             itemView.setOnClickListener {
                 val moveToDetail = Intent(context, UserDetailActivity::class.java)
@@ -68,20 +54,16 @@ class UserListAdapter(private val context: Context) :
 
     override fun getItemCount(): Int = userData.size
 
-//    interface OnItemClickCallback {
-//        fun onItemClicked(data: User)
-//    }
-
     fun initData(users: List<ItemsItem>) {
         clearData()
         userData = users.toMutableList()
     }
 
-    fun clearData(){
+    fun clearData() {
         userData.clear()
     }
 
-    companion object {
+    companion object{
         const val EXTRA_USER = "extra_user"
     }
 }
