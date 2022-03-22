@@ -1,6 +1,5 @@
 package com.fadlan.githubuserapp
 
-import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -11,19 +10,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fadlan.githubuserapp.databinding.ActivityMainBinding
-import androidx.appcompat.widget.SearchView
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.fadlan.githubuserapp.adapter.UserListAdapter
-import com.fadlan.githubuserapp.data.model.UserResponse
+import com.fadlan.githubuserapp.ui.main.UserListAdapter
 import com.fadlan.githubuserapp.ui.SettingActivity
-import com.fadlan.githubuserapp.ui.UserDetailActivity
-import com.fadlan.githubuserapp.viewmodel.MainViewModel
+import com.fadlan.githubuserapp.ui.main.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {

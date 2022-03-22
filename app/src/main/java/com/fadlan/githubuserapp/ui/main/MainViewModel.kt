@@ -1,15 +1,13 @@
-package com.fadlan.githubuserapp.viewmodel
+package com.fadlan.githubuserapp.ui.main
 
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.fadlan.githubuserapp.R
 import com.fadlan.githubuserapp.data.model.SearchResponse
 import com.fadlan.githubuserapp.data.model.ItemsItem
 import com.fadlan.githubuserapp.data.setting.ApiConfig
-import com.fadlan.githubuserapp.databinding.ActivityMainBinding
 import retrofit2.Response
 import retrofit2.Call
 import retrofit2.Callback

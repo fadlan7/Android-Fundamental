@@ -1,4 +1,4 @@
-package com.fadlan.githubuserapp.ui
+package com.fadlan.githubuserapp.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
