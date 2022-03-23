@@ -1,7 +1,6 @@
 package com.fadlan.githubuserapp.ui.detail
 
 import android.annotation.SuppressLint
-import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
@@ -28,12 +27,12 @@ class DetailViewModel : ViewModel() {
             @SuppressLint("NullSafeMutableLiveData")
             override fun onResponse(
                 call: Call<UserResponse>,
-                response: Response<UserResponse>
-            ){
+                response: Response<UserResponse>,
+            ) {
                 if (response.isSuccessful) {
                     val data = response.body()
                     userData.postValue(data)
-//                    load.postValue(View.GONE)
+                    load.postValue(View.GONE)
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()} ")
                     error.postValue(response.message())
@@ -46,4 +45,40 @@ class DetailViewModel : ViewModel() {
             }
         })
     }
+
+    fun getFollowable(follow: String, username: String) {
+        val client = when (follow) {
+            FOLLOWERS -> ApiConfig.getApiService().getUserFollowers(username)
+            else -> ApiConfig.getApiService().getUserFollowing(username)
+        }
+
+        client.enqueue(object : Callback<List<FollowableResponse>> {
+            @SuppressLint("NullSafeMutableLiveData")
+            override fun onResponse(
+                call: Call<List<FollowableResponse>>,
+                response: Response<List<FollowableResponse>>,
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    followable.postValue(data)
+                    load.postValue(View.GONE)
+                } else {
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                    error.postValue(response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<List<FollowableResponse>>, t: Throwable) {
+                Log.e(TAG, "onFailure: $t")
+                error.postValue(t.message)
+            }
+        })
+    }
+
+    companion object {
+        const val TAG = "DetailViewModel"
+        const val FOLLOWERS = "followers"
+        const val FOLLOWING = "following"
+    }
 }
+

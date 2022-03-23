@@ -35,10 +35,10 @@ class MainViewModel : ViewModel() {
                     val data = response.body()
                     load.postValue(View.GONE)
                     if (data?.totalCount == 0) {
-                        // jika data tidak ditemukan -> set null, di activity akan diarahkan ke clear data (menghindari NPE)
+
                         userData.postValue(null)
                         messageInfo.postValue(View.VISIBLE)
-                        error.postValue("Pengguna $keyword tidak ditemukan")
+                        error.postValue("$keyword Not Found")
                     } else {
                         userData.postValue(data?.items)
                         messageInfo.postValue(View.GONE)

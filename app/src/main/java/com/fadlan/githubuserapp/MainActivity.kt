@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
             userData.observe(context, { data ->
                 userAdapter.apply {
-                    // jika data search null -> tidak menampilkan apapun
+                    //User not found
                     if (data.isNullOrEmpty()) {
                         clearData()
                         binding.imgMsg.apply {
@@ -58,22 +58,33 @@ class MainActivity : AppCompatActivity() {
                             visibility = View.INVISIBLE
                         }
 
-                    } else initData(data)
+                    } else initUserData(data)
                     notifyDataSetChanged()
                 }
             })
         }
 
-        binding.rvUsers.apply {
-            adapter = userAdapter
-            if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                layoutManager = GridLayoutManager(context, 2)
-            } else {
-                layoutManager = LinearLayoutManager(context)
-            }
-            isNestedScrollingEnabled = false
-        }
+        showRecyclerList()
+        searchUser()
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.setting_menu -> {
+                val i = Intent(this, SettingActivity::class.java)
+                startActivity(i)
+                return true
+            }
+            else -> return true
+        }
+    }
+
+    private fun searchUser(){
         binding.searchView.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN &&
                 keyCode == KeyEvent.KEYCODE_ENTER
@@ -97,23 +108,17 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnKeyListener false
         }
-
-//        searchUser()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.option_menu, menu)
-        return true
-    }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.setting_menu -> {
-                val i = Intent(this, SettingActivity::class.java)
-                startActivity(i)
-                return true
+    private fun showRecyclerList(){
+        binding.rvUsers.apply {
+            adapter = userAdapter
+            if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                layoutManager = GridLayoutManager(context, 2)
+            } else {
+                layoutManager = LinearLayoutManager(context)
             }
-            else -> return true
+            isNestedScrollingEnabled = false
         }
     }
 

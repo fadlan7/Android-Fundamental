@@ -1,4 +1,5 @@
 package com.fadlan.githubuserapp.data.setting
+import com.fadlan.githubuserapp.data.model.FollowableResponse
 import com.fadlan.githubuserapp.data.model.SearchResponse
 import com.fadlan.githubuserapp.data.model.UserResponse
 import retrofit2.Call
@@ -15,13 +16,13 @@ interface ApiService {
     fun getUserFollowers (
         @Path("login")
         username: String
-    ): Call<List<UserResponse>>
+    ): Call<List<FollowableResponse>>
 
     @GET("users/{login}/following")
     fun getUserFollowing (
         @Path("login")
         username: String
-    ): Call<List<UserResponse>>
+    ): Call<List<FollowableResponse>>
 
     //Search User
     @GET("search/users")

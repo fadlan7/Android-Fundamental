@@ -21,7 +21,6 @@ class UserListAdapter(private val context: Context) :
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ListViewHolder {
         val binding =
-//            LayoutInflater.from(viewGroup.context).inflate(R.layout.users_follow, viewGroup, false)
             UsersListBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
         return ListViewHolder(binding)
     }
@@ -30,7 +29,6 @@ class UserListAdapter(private val context: Context) :
         var imgUser: ImageView = binding.ivUsersPhoto
         var userName: TextView = binding.tvUsername
     }
-
 
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
@@ -54,7 +52,7 @@ class UserListAdapter(private val context: Context) :
 
     override fun getItemCount(): Int = userData.size
 
-    fun initData(users: List<ItemsItem>) {
+    fun initUserData(users: List<ItemsItem>) {
         clearData()
         userData = users.toMutableList()
     }
@@ -63,7 +61,7 @@ class UserListAdapter(private val context: Context) :
         userData.clear()
     }
 
-    companion object{
+    companion object {
         const val EXTRA_USER = "extra_user"
     }
 }
