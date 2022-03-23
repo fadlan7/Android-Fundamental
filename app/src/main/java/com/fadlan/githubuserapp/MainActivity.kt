@@ -1,6 +1,5 @@
 package com.fadlan.githubuserapp
 
-import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -11,29 +10,23 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fadlan.githubuserapp.databinding.ActivityMainBinding
-import androidx.appcompat.widget.SearchView
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.fadlan.githubuserapp.adapter.UserListAdapter
-import com.fadlan.githubuserapp.data.model.UserResponse
+import com.fadlan.githubuserapp.ui.main.UserListAdapter
 import com.fadlan.githubuserapp.ui.SettingActivity
-import com.fadlan.githubuserapp.ui.UserDetailActivity
-import com.fadlan.githubuserapp.viewmodel.MainViewModel
+import com.fadlan.githubuserapp.ui.main.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var rvUsers: RecyclerView
     private val userAdapter = UserListAdapter(this)
-
-    //    private val list = ArrayList<UserResponse>()
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
+    private val context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,13 +36,13 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = resources.getString(R.string.app_name)
 
         viewModel.apply {
-            load.observe(this@MainActivity, { binding.loadingBar.visibility = it })
-            messageInfo.observe(this@MainActivity, { binding.message.visibility = it })
-            error.observe(this@MainActivity, { sweetAlert(this@MainActivity, it) })
+            load.observe(context, { binding.loadingBar.visibility = it })
+            messageInfo.observe(context, { binding.message.visibility = it })
+            error.observe(context, { sweetAlert(context, it) })
 
-            userData.observe(this@MainActivity, { data ->
+            userData.observe(context, { data ->
                 userAdapter.apply {
-                    // jika data search null -> tidak menampilkan apapun
+                    //User not found
                     if (data.isNullOrEmpty()) {
                         clearData()
                         binding.imgMsg.apply {
@@ -65,22 +58,33 @@ class MainActivity : AppCompatActivity() {
                             visibility = View.INVISIBLE
                         }
 
-                    } else initData(data)
+                    } else initUserData(data)
                     notifyDataSetChanged()
                 }
             })
         }
 
-        binding.rvUsers.apply {
-            adapter = userAdapter
-            if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                layoutManager = GridLayoutManager(context, 2)
-            } else {
-                layoutManager = LinearLayoutManager(context)
-            }
-            isNestedScrollingEnabled = false
-        }
+        showRecyclerList()
+        searchUser()
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.setting_menu -> {
+                val i = Intent(this, SettingActivity::class.java)
+                startActivity(i)
+                return true
+            }
+            else -> return true
+        }
+    }
+
+    private fun searchUser(){
         binding.searchView.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN &&
                 keyCode == KeyEvent.KEYCODE_ENTER
@@ -104,56 +108,21 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnKeyListener false
         }
-
-//        searchUser()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.option_menu, menu)
-        return true
-    }
-
-//    fun searchUser() {
-//        binding.searchView.setOnKeyListener { _, keyCode, event ->
-//            if (event.action == KeyEvent.ACTION_DOWN &&
-//                keyCode == KeyEvent.KEYCODE_ENTER
-//            ) {
-//                if (binding.searchView.text?.length == 0) {
-//                    Toast.makeText(
-//                        this@MainActivity,
-//                        resources.getString(R.string.search_blank),
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                    return@setOnKeyListener false
-//                } else {
-//                    binding.searchView.apply {
-//                        this.clearFocus()
-//                        val imm: InputMethodManager = getSystemService(
-//                            INPUT_METHOD_SERVICE
-//                        ) as InputMethodManager
-//                        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
-//                    }
-//                    viewModel.getSearch(binding.searchView.text.toString())
-//                    return@setOnKeyListener true
-//                }
-//            }
-//            return@setOnKeyListener false
-//        }
-//    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.setting_menu -> {
-                val i = Intent(this, SettingActivity::class.java)
-                startActivity(i)
-                return true
+    private fun showRecyclerList(){
+        binding.rvUsers.apply {
+            adapter = userAdapter
+            if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                layoutManager = GridLayoutManager(context, 2)
+            } else {
+                layoutManager = LinearLayoutManager(context)
             }
-            else -> return true
+            isNestedScrollingEnabled = false
         }
     }
 
-    fun sweetAlert(context: Context, message: String){
+    private fun sweetAlert(context: Context, message: String){
         SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
             .setTitleText("Oops...")
             .setContentText( message)
