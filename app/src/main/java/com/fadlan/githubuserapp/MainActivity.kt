@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun sweetAlert(context: Context, message: String){
         SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
-            .setTitleText("Oops...")
+            .setTitleText(resources.getString(R.string.oops))
             .setContentText( message)
             .show()
     }

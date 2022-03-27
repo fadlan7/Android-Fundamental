@@ -4,9 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.SettingActivity">
-    <TextView
-        android:layout_width="wrap_content"
+
+    <RadioGroup
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:id="@+id/RgTheme"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/setting_menu" />
+        tools:ignore="UselessParent">
+
+        <RadioButton
+            android:id="@+id/RbLight"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutDirection="rtl"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/Rb_light"/>
+
+        <RadioButton
+            android:id="@+id/RbDark"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutDirection="rtl"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/Rb_Dark"/>
+
+        <RadioButton
+            android:id="@+id/RbSystemDef"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutDirection="rtl"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/system_default"/>
+    </RadioGroup>
 </RelativeLayout>

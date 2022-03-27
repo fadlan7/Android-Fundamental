@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.fadlan.githubuserapp.R
 import com.fadlan.githubuserapp.databinding.FragmentUserFollowBinding
 import com.fadlan.githubuserapp.ui.detail.DetailViewModel
 import java.util.Objects.isNull
@@ -67,9 +68,14 @@ class UserFollowFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.root.requestLayout()
+    }
+
     private fun sweetAlert(context: Context, message: String) {
         SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
-            .setTitleText("Oops...")
+            .setTitleText(resources.getString(R.string.oops))
             .setContentText(message)
             .show()
     }

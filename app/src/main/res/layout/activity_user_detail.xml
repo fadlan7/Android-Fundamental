@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    >
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_users_photo"
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:textColor="@color/black"
+
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +110,7 @@
         android:src="@drawable/ic_baseline_location_on_24_black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_username"
-        app:tint="@color/black" />
+       />
 
     <TextView
         android:id="@+id/tv_location"
@@ -118,7 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textAlignment="center"
-        android:textColor="@color/black"
+
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/img_location"
         app:layout_constraintTop_toTopOf="@+id/img_location"
@@ -134,7 +134,7 @@
         android:src="@drawable/ic_baseline_work_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_location"
-        app:tint="@color/black" />
+        />
 
     <TextView
         android:id="@+id/tv_company"
@@ -142,7 +142,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textAlignment="center"
-        android:textColor="@color/black"
+
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/img_company"
         app:layout_constraintTop_toTopOf="@+id/img_company"
@@ -153,7 +153,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/background"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_company" />

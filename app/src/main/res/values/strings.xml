@@ -25,6 +25,10 @@
 
     <string name="tab_text_1">Followers</string>
     <string name="tab_text_2">Following</string>
+    <string name="oops">Oops…</string>
+    <string name="Rb_light">Light</string>
+    <string name="Rb_Dark">Dark</string>
+    <string name="system_default">System default</string>
 
 </resources>
 
