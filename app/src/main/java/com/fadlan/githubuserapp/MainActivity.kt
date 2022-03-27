@@ -13,11 +13,10 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.fadlan.githubuserapp.databinding.ActivityMainBinding
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.fadlan.githubuserapp.ui.main.UserListAdapter
-import com.fadlan.githubuserapp.ui.SettingActivity
+import com.fadlan.githubuserapp.ui.setting.SettingActivity
 import com.fadlan.githubuserapp.ui.main.MainViewModel
 
 

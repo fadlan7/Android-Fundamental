@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SettingActivity">
+    tools:context=".ui.setting.SettingActivity">
 
     <RadioGroup
         android:layout_margin="8dp"
@@ -18,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layoutDirection="rtl"
-            android:onClick="onRadioButtonClicked"
             android:text="@string/Rb_light"/>
 
         <RadioButton
@@ -26,15 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layoutDirection="rtl"
-            android:onClick="onRadioButtonClicked"
             android:text="@string/Rb_Dark"/>
-
-        <RadioButton
-            android:id="@+id/RbSystemDef"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layoutDirection="rtl"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/system_default"/>
     </RadioGroup>
 </RelativeLayout>
