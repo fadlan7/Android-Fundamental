@@ -1,24 +1,28 @@
 package com.fadlan.githubuserapp.ui.detail
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.fadlan.githubuserapp.data.database.User
 import com.fadlan.githubuserapp.data.model.FollowableResponse
 import com.fadlan.githubuserapp.data.model.UserResponse
+import com.fadlan.githubuserapp.data.repository.UserRepository
 import com.fadlan.githubuserapp.data.setting.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(application: Application) : ViewModel() {
 
     val userData = MutableLiveData<UserResponse>()
     val followable = MutableLiveData<List<FollowableResponse>>()
     val load = MutableLiveData(View.VISIBLE)
     val error = MutableLiveData<String>()
+    private val mUserRepository: UserRepository = UserRepository(application)
 
     fun getUserData(username: String) {
         val client = ApiConfig.getApiService().getUser(username)
@@ -73,6 +77,19 @@ class DetailViewModel : ViewModel() {
                 error.postValue(t.message)
             }
         })
+    }
+
+
+    fun insert(user: User){
+        mUserRepository.insert(user)
+    }
+
+    fun update(user: User){
+        mUserRepository.update(user)
+    }
+
+    fun delete(user: User){
+        mUserRepository.delete(user)
     }
 
     companion object {

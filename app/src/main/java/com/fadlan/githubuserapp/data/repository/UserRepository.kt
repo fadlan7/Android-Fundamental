@@ -5,13 +5,12 @@ import androidx.lifecycle.LiveData
 import com.fadlan.githubuserapp.data.database.User
 import com.fadlan.githubuserapp.data.database.UserDao
 import com.fadlan.githubuserapp.data.database.UserRoomDatabase
-import java.util.concurrent.Executor
 import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors.newSingleThreadExecutor
+import java.util.concurrent.Executors
 
 class UserRepository(application: Application) {
     private val mUsersDao: UserDao
-    private val executorService: ExecutorService = Executor.newSingleThreadExecutor()
+    private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
     init {
         val db = UserRoomDatabase.getDatabase(application)

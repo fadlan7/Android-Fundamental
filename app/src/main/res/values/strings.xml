@@ -29,6 +29,8 @@
     <string name="Rb_light">Light</string>
     <string name="Rb_Dark">Dark</string>
     <string name="system_default">System default</string>
+    <string name="fab_favorite">fab favorite</string>
+    <string name="date_added">Date added:</string>
 
 </resources>
 

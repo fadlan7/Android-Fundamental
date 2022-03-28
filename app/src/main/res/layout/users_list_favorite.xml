@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/card"
+    android:layout_gravity="center"
+    android:layout_margin="8dp"
+    card_view:cardCornerRadius="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            style="@style/user_photo"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:id="@+id/iv_users_photo"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars"
+            android:contentDescription="@string/users_images"/>
+
+        <TextView
+            android:id="@+id/tv_username"
+            style="@style/userName"
+            android:layout_marginStart="32dp"
+            card_view:layout_constraintStart_toEndOf="@+id/iv_users_photo"
+            card_view:layout_constraintTop_toTopOf="@+id/iv_users_photo"
+            tools:text="@string/username_dummy" />
+
+        <TextView
+            android:id="@+id/tv_date_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:textSize="14sp"
+            card_view:layout_constraintBottom_toBottomOf="@+id/iv_users_photo"
+            card_view:layout_constraintStart_toEndOf="@+id/iv_users_photo"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_username"
+            android:text="@string/date_added" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginStart="4dp"
+            card_view:layout_constraintBottom_toBottomOf="@+id/iv_users_photo"
+            card_view:layout_constraintStart_toEndOf="@+id/tv_date_title"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_username"
+            tools:text="26/02/2022" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

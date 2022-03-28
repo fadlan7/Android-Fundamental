@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_users_photo"
@@ -109,8 +108,7 @@
         android:contentDescription="@string/location_icon"
         android:src="@drawable/ic_baseline_location_on_24_black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_username"
-       />
+        app:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
     <TextView
         android:id="@+id/tv_location"
@@ -133,8 +131,7 @@
         android:contentDescription="@string/company_icon"
         android:src="@drawable/ic_baseline_work_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_location"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/img_location" />
 
     <TextView
         android:id="@+id/tv_company"
@@ -171,4 +168,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_love"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:foregroundGravity="bottom"
+        android:contentDescription="@string/fab_favorite"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/baseline_favorite_24_white"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
