@@ -2,18 +2,22 @@ package com.fadlan.githubuserapp.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.fadlan.githubuserapp.data.model.UserResponse
 
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(user: User)
-
-    @Update
-    fun update(user: User)
+    suspend fun insert(user: UserResponse)
 
     @Delete
-    fun delete(user: User)
+    suspend fun removeFavUser(user: UserResponse)
 
-    @Query("SELECT * from user ORDER BY id ASC")
-    fun getAllUsers(): LiveData<List<User>>
+    @Query("DELETE FROM userFav")
+    suspend fun removeAllFavUser()
+
+    @Query("SELECT * from userFav ORDER BY username ASC")
+    suspend fun getFavListUser(): List<UserResponse>
+
+    @Query("SELECT * FROM userFav WHERE username=:username")
+    suspend fun getFavUser(username: String): UserResponse
 }

@@ -1,57 +1,49 @@
 package com.fadlan.githubuserapp.ui.setting
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.CompoundButton
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.fadlan.githubuserapp.R
-import com.fadlan.githubuserapp.databinding.ActivitySettingBinding
+import com.google.android.material.switchmaterial.SwitchMaterial
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "theme_setting")
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "THEME_SETTING")
 
 class SettingActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySettingBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySettingBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_setting)
 
         supportActionBar?.title = "Set theme"
 
-        val pref = SettingPreferences.getInstance(dataStore)
-        val viewModel = ViewModelProvider(this, ViewModelFactory(pref))[
-                SettingViewModel::class.java
-        ]
+        val switchTheme = findViewById<SwitchMaterial>(R.id.switch_theme)
 
-        viewModel.getThemeSettings().observe(
-            this, {
-                when (it) {
-                    1 -> {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                        binding.RbLight.isChecked = true
-                    }
-                    2 -> {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                        binding.RbDark.isChecked = true
-                    }
+        val pref = SettingPreferences.getInstance(dataStore)
+        val viewModel = ViewModelProvider(this, SettingViewModelFactory(pref)).get(
+            SettingViewModel::class.java
+        )
+
+        viewModel.getThemeSettings().observe(this,
+            { isDarkModeActive: Boolean ->
+                if (isDarkModeActive) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    switchTheme.isChecked = true
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    switchTheme.isChecked = false
                 }
             }
         )
-        binding.RgTheme.setOnCheckedChangeListener { _, id ->
-            when(id){
-                binding.RbLight.id ->viewModel.saveThemeSetting(1)
-                binding.RbDark.id ->viewModel.saveThemeSetting(2)
-            }
+
+        switchTheme.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            viewModel.saveThemeSetting(isChecked)
         }
     }
 }

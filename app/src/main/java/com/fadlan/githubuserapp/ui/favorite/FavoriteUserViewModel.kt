@@ -1,13 +1,16 @@
 package com.fadlan.githubuserapp.ui.favorite
 
 import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.fadlan.githubuserapp.data.database.User
 import com.fadlan.githubuserapp.data.repository.UserRepository
 
-class FavoriteUserViewModel(application: Application) : ViewModel() {
+class FavoriteUserViewModel(application: Application) : AndroidViewModel(application) {
     private val mUserRepository: UserRepository = UserRepository(application)
 
-    fun getAllUsers(): LiveData<List<User>> = mUserRepository.getAllUsers()
+    suspend fun getFavListUser()= mUserRepository.getUserFavList()
+
+    suspend fun removeAllFavUser()=mUserRepository.removeAllFavUser()
+
 }

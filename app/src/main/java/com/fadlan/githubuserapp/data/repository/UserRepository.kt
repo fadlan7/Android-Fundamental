@@ -2,32 +2,143 @@ package com.fadlan.githubuserapp.data.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.fadlan.githubuserapp.data.database.User
+import androidx.lifecycle.MutableLiveData
+import com.fadlan.githubuserapp.data.Result
 import com.fadlan.githubuserapp.data.database.UserDao
 import com.fadlan.githubuserapp.data.database.UserRoomDatabase
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
+import com.fadlan.githubuserapp.data.model.UserResponse
+import com.fadlan.githubuserapp.data.model.SearchResponse
+import com.fadlan.githubuserapp.data.setting.ApiConfig
+import com.fadlan.githubuserapp.data.setting.ApiService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class UserRepository(application: Application) {
     private val mUsersDao: UserDao
-    private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
+    private val apiService: ApiService = ApiConfig.getApiService()
 
     init {
-        val db = UserRoomDatabase.getDatabase(application)
+        val db: UserRoomDatabase = UserRoomDatabase.getDatabase(application)
         mUsersDao = db.userDao()
     }
 
-    fun getAllUsers(): LiveData<List<User>> = mUsersDao.getAllUsers()
+    fun userSearch(query: String): LiveData<Result<List<UserResponse>>> {
+        val userList = MutableLiveData<Result<List<UserResponse>>>()
 
-    fun insert(user: User){
-        executorService.execute{mUsersDao.insert(user)}
+        userList.postValue(Result.Loading())
+        apiService.searchUsers(query).enqueue(object : Callback<SearchResponse> {
+            override fun onResponse(
+                call: Call<SearchResponse>,
+                response: Response<SearchResponse>
+            ) {
+                val data = response.body()?.items
+
+                if (data.isNullOrEmpty()) {
+                    userList.postValue(Result.Error(null))
+                } else {
+                    userList.postValue(Result.Success(data))
+                }
+            }
+
+            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                userList.postValue(Result.Error(t.message))
+            }
+        })
+        return userList
     }
 
-    fun delete(user: User){
-        executorService.execute{mUsersDao.delete(user)}
+    suspend fun getUser(username: String): LiveData<Result<UserResponse>> {
+        val user = MutableLiveData<Result<UserResponse>>()
+
+        if (mUsersDao.getFavUser(username) != null) {
+            user.postValue(Result.Success(mUsersDao.getFavUser(username)))
+        } else {
+            apiService.getUser(username).enqueue(object : Callback<UserResponse> {
+                override fun onResponse(
+                    call: Call<UserResponse>,
+                    response: Response<UserResponse>
+                ) {
+                    val data = response.body()
+                    user.postValue(Result.Success(data))
+                }
+
+                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+
+                }
+
+            })
+        }
+        return user
     }
 
-    fun update(user: User){
-        executorService.execute{mUsersDao.update(user)}
+    fun getFollowingUser(username: String): LiveData<Result<List<UserResponse>>> {
+        val userList = MutableLiveData<Result<List<UserResponse>>>()
+
+        userList.postValue(Result.Loading())
+        apiService.getUserFollowing(username).enqueue(object : Callback<List<UserResponse>> {
+            override fun onResponse(
+                call: Call<List<UserResponse>>,
+                response: Response<List<UserResponse>>
+            ) {
+                val data = response.body()
+
+                if (data.isNullOrEmpty()) {
+                    userList.postValue(Result.Error(null))
+                } else {
+                    userList.postValue(Result.Success(data))
+                }
+            }
+
+            override fun onFailure(call: Call<List<UserResponse>>, t: Throwable) {
+                userList.postValue(Result.Error(t.message))
+            }
+        })
+        return userList
     }
+
+    fun getFollowersUser(username: String): LiveData<Result<List<UserResponse>>> {
+        val userList = MutableLiveData<Result<List<UserResponse>>>()
+
+        userList.postValue(Result.Loading())
+        apiService.getUserFollowers(username).enqueue(object : Callback<List<UserResponse>> {
+            override fun onResponse(
+                call: Call<List<UserResponse>>,
+                response: Response<List<UserResponse>>
+            ) {
+                val data = response.body()
+
+
+                if (data.isNullOrEmpty()) {
+                    userList.postValue(Result.Error(null))
+                } else {
+                    userList.postValue(Result.Success(data))
+                }
+            }
+
+            override fun onFailure(call: Call<List<UserResponse>>, t: Throwable) {
+                userList.postValue(Result.Error(t.message))
+            }
+        })
+        return userList
+    }
+
+    suspend fun getUserFavList(): LiveData<Result<List<UserResponse>>> {
+        val listUserFavorite = MutableLiveData<Result<List<UserResponse>>>()
+        listUserFavorite.postValue(Result.Loading())
+
+        if (mUsersDao.getFavListUser().isNullOrEmpty()) {
+            listUserFavorite.postValue(Result.Error(null))
+        } else {
+            listUserFavorite.postValue(Result.Success(mUsersDao.getFavListUser()))
+        }
+
+        return listUserFavorite
+    }
+
+    suspend fun insetFavorite(user: UserResponse) = mUsersDao.insert(user)
+    suspend fun removeFavorite(user: UserResponse) = mUsersDao.removeFavUser(user)
+    suspend fun removeAllFavUser() = mUsersDao.removeAllFavUser()
 }
+
+

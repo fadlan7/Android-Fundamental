@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.fadlan.githubuserapp.data.model.UserResponse
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [UserResponse::class], version = 1, exportSchema = false)
 abstract class UserRoomDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
@@ -19,9 +20,8 @@ abstract class UserRoomDatabase : RoomDatabase() {
                 synchronized(UserRoomDatabase::class.java) {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
-                        UserRoomDatabase::class.java, "user_database"
-                    )
-                        .build()
+                        UserRoomDatabase::class.java, "user_favorite_databases"
+                    ).build()
                 }
             }
             return INSTANCE as UserRoomDatabase

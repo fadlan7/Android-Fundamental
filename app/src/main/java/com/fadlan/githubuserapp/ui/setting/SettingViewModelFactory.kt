@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import java.lang.IllegalArgumentException
 
-class ViewModelFactory(private val pref: SettingPreferences) :
+class SettingViewModelFactory(private val pref: SettingPreferences) :
     ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
@@ -13,6 +13,6 @@ class ViewModelFactory(private val pref: SettingPreferences) :
             return SettingViewModel(pref) as T
         }
 
-        throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
+        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }
 }

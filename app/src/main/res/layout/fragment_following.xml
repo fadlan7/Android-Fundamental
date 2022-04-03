@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.favorite.FavoriteUserActivity">
+    tools:context=".ui.detail.Following.FollowingFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_fav_users"
+        android:id="@+id/rv_users_follow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/users_list_favorite" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/users_list" />
 
     <LinearLayout
         android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UseCompoundDrawables">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/img_msg"
@@ -36,9 +30,14 @@
             android:id="@+id/msg_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_favorite"
+            android:text="@string/waiting_search_head"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/msg_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/waiting_search_title" />
 
     </LinearLayout>
 
@@ -46,8 +45,7 @@
         android:id="@+id/loading_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+</FrameLayout>
