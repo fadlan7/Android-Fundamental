@@ -1,6 +1,7 @@
 package com.fadlan.githubuserapp.data.repository
 
 import android.app.Application
+import androidx.datastore.dataStore
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fadlan.githubuserapp.data.Result
@@ -10,6 +11,7 @@ import com.fadlan.githubuserapp.data.model.UserResponse
 import com.fadlan.githubuserapp.data.model.SearchResponse
 import com.fadlan.githubuserapp.data.setting.ApiConfig
 import com.fadlan.githubuserapp.data.setting.ApiService
+import com.fadlan.githubuserapp.ui.setting.SettingPreferences
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

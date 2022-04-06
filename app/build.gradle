@@ -16,14 +16,14 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "PERSONAL_TOKEN", '"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"')
+        buildConfigField("String", "PERSONAL_TOKEN", '"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"')
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            shrinkResources true
+//            shrinkResources true
         }
     }
     compileOptions {

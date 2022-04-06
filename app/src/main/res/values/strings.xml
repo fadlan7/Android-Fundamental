@@ -38,6 +38,8 @@
     <string name="has_been_deleted">Favorite list has been deleted</string>
     <string name="dont_have_fav">you don\'t have a favorite user!</string>
     <string name="no_following">Didn\'t follow anyone</string>
+    <string name="set_theme_menu">Set Theme</string>
+    <string name="fav_user_page">Favorite User</string>
 
 </resources>
 

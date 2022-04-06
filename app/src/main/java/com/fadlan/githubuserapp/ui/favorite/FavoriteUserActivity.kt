@@ -30,6 +30,8 @@ class FavoriteUserActivity : AppCompatActivity() {
         binding = ActivityFavoriteUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.title =getString(R.string.fav_user_page)
+
         favAdapter = FavoriteUserAdapter()
 
         binding.rvFavUsers.apply {
@@ -52,15 +54,17 @@ class FavoriteUserActivity : AppCompatActivity() {
     private fun onSuccess(data: List<UserResponse>) {
         binding.apply {
             loadingBar.visibility = View.GONE
-
         }
         favAdapter.initUserData(data)
     }
 
     private fun onFailed(error: String?) {
         if (error == null) {
-            binding.loadingBar.visibility = View.GONE
-            binding.message.visibility = View.VISIBLE
+            binding.apply {
+                loadingBar.visibility = View.GONE
+                message.visibility = View.VISIBLE
+                rvFavUsers.visibility = View.GONE
+            }
         }
     }
 
