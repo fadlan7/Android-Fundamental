@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GitHubUserApp">
         <activity
-            android:name=".ui.SettingActivity"
+            android:name=".ui.favorite.FavoriteUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.setting.SettingActivity"
             android:exported="false" />
         <activity
             android:name=".ui.SplashScreenActivity"

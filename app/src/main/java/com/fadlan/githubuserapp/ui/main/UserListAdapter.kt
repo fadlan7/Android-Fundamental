@@ -1,23 +1,29 @@
 package com.fadlan.githubuserapp.ui.main
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.fadlan.githubuserapp.R
-import com.fadlan.githubuserapp.data.model.ItemsItem
+import com.fadlan.githubuserapp.data.model.UserResponse
 import com.fadlan.githubuserapp.databinding.UsersListBinding
+import com.fadlan.githubuserapp.helper.Constanta.EXTRA_USER
 import com.fadlan.githubuserapp.ui.detail.UserDetailActivity
 
-class UserListAdapter(private val context: Context) :
+class UserListAdapter() :
     RecyclerView.Adapter<UserListAdapter.ListViewHolder>() {
 
-    private var userData = mutableListOf<ItemsItem>()
+    private var userData = ArrayList<UserResponse>()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun initUserData(data: List<UserResponse>) {
+        userData.apply {
+            clear()
+            addAll(data)
+        }
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ListViewHolder {
         val binding =
@@ -25,43 +31,29 @@ class UserListAdapter(private val context: Context) :
         return ListViewHolder(binding)
     }
 
-    class ListViewHolder(binding: UsersListBinding) : RecyclerView.ViewHolder(binding.root) {
-        var imgUser: ImageView = binding.ivUsersPhoto
-        var userName: TextView = binding.tvUsername
-    }
-
-
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val data = userData[position]
-        holder.apply {
-            userName.text = data.login
-
-            Glide.with(context)
-                .load(data.avatarUrl)
-                .circleCrop()
-                .into(imgUser)
-
-            itemView.setOnClickListener {
-                val moveToDetail = Intent(context, UserDetailActivity::class.java)
-
-                moveToDetail.putExtra(EXTRA_USER, data.login)
-                context.startActivity(moveToDetail)
-            }
-        }
+        holder.bind(userData[position])
     }
 
     override fun getItemCount(): Int = userData.size
 
-    fun initUserData(users: List<ItemsItem>) {
-        clearData()
-        userData = users.toMutableList()
-    }
+    class ListViewHolder(private val view: UsersListBinding) : RecyclerView.ViewHolder(view.root) {
+        fun bind(data: UserResponse) {
+            view.apply {
+                tvUsername.text = data.login
+            }
 
-    fun clearData() {
-        userData.clear()
-    }
+            Glide.with(itemView.context)
+                .load(data.avatar)
+                .circleCrop()
+                .into(view.ivUsersPhoto)
 
-    companion object {
-        const val EXTRA_USER = "extra_user"
+            itemView.setOnClickListener {
+                val moveToDetail = Intent(itemView.context, UserDetailActivity::class.java)
+
+                moveToDetail.putExtra(EXTRA_USER, data.login)
+                itemView.context.startActivity(moveToDetail)
+            }
+        }
     }
 }

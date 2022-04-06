@@ -1,5 +1,7 @@
 package com.fadlan.githubuserapp.data.setting
 
+import com.fadlan.githubuserapp.BuildConfig
+import com.fadlan.githubuserapp.helper.Constanta.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -8,15 +10,14 @@ import java.util.concurrent.TimeUnit
 
 class ApiConfig {
     companion object {
-        private const val PERSONAL_TOKEN = "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"
-        private const val BASE_URL = "https://api.github.com"
+//        PERSONAL_TOKEN = "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"
 
         fun getApiService(): ApiService {
             val client = OkHttpClient.Builder()
                 .addInterceptor {
                     val original = it.request()
                     val requestBuilder = original.newBuilder()
-                        .addHeader("Authorization", PERSONAL_TOKEN)
+                        .addHeader("Authorization", BuildConfig.PERSONAL_TOKEN)
                     val request = requestBuilder.build()
                     it.proceed(request)
                 }

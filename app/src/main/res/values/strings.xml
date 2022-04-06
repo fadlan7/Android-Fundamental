@@ -17,7 +17,6 @@
     <string name="github_logo">GitHub Logo</string>
     <string name="setting_menu">Setting</string>
     <string name="search_hint">Who are you looking for?</string>
-    <string name="search_blank">Username cannot be empty</string>
     <string name="waiting_search_img">waiting search images</string>
     <string name="waiting_search_head">Waiting to search!</string>
     <string name="waiting_search_title">Search result will appear here</string>
@@ -25,6 +24,22 @@
 
     <string name="tab_text_1">Followers</string>
     <string name="tab_text_2">Following</string>
+    <string name="oops">Oops…</string>
+    <string name="fab_favorite">fab favorite</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="no_favorite">Doesn\'t have a favorite user</string>
+    <string name="no_followers">Didn\'t Have Followers</string>
+
+    <string name="remove_user">Remove User</string>
+    <string name="cancel">NO</string>
+    <string name="accept">YES</string>
+    <string name="del_all">Delete All</string>
+    <string name="del_all_fav">are you sure you want to delete all favorites list?</string>
+    <string name="has_been_deleted">Favorite list has been deleted</string>
+    <string name="dont_have_fav">you don\'t have a favorite user!</string>
+    <string name="no_following">Didn\'t follow anyone</string>
+    <string name="set_theme_menu">Set Theme</string>
+    <string name="fav_user_page">Favorite User</string>
 
 </resources>
 

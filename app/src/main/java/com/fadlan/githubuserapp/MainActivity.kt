@@ -1,32 +1,33 @@
 package com.fadlan.githubuserapp
 
-import android.content.Context
+
 import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
+import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.fadlan.githubuserapp.databinding.ActivityMainBinding
-import cn.pedant.SweetAlert.SweetAlertDialog
+import com.fadlan.githubuserapp.data.Result
+import com.fadlan.githubuserapp.data.model.UserResponse
+import com.fadlan.githubuserapp.ui.favorite.FavoriteUserActivity
 import com.fadlan.githubuserapp.ui.main.UserListAdapter
-import com.fadlan.githubuserapp.ui.SettingActivity
+import com.fadlan.githubuserapp.ui.setting.SettingActivity
 import com.fadlan.githubuserapp.ui.main.MainViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class MainActivity : AppCompatActivity() {
 
-    private val userAdapter = UserListAdapter(this)
+    private var userAdapter = UserListAdapter()
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
-    private val context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,38 +35,70 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.title = resources.getString(R.string.app_name)
+        binding.searchView.apply {
+            visibility = View.VISIBLE
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    val userQuery = query.toString()
+                    clearFocus()
 
-        viewModel.apply {
-            load.observe(context, { binding.loadingBar.visibility = it })
-            messageInfo.observe(context, { binding.message.visibility = it })
-            error.observe(context, { sweetAlert(context, it) })
-
-            userData.observe(context, { data ->
-                userAdapter.apply {
-                    //User not found
-                    if (data.isNullOrEmpty()) {
-                        clearData()
-                        binding.imgMsg.apply {
-                            setImageResource(R.drawable.ic_undraw_not_found__60_pq)
-                            visibility = View.VISIBLE
+                    viewModel.userSearch(userQuery).observe(this@MainActivity) {
+                        when (it) {
+                            is Result.Success -> it.data?.let { data -> onSuccess(data) }
+                            is Result.Error -> onFailed(it.error)
+                            is Result.Loading -> onLoading()
                         }
-                        binding.msgHeader.apply {
-                            text = resources.getString(R.string.user_not_found)
-                            visibility = View.VISIBLE
-                        }
+                    }
+                    return true
+                }
 
-                        binding.msgTitle.apply {
-                            visibility = View.INVISIBLE
-                        }
-
-                    } else initUserData(data)
-                    notifyDataSetChanged()
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    return false
                 }
             })
         }
-
         showRecyclerList()
-        searchUser()
+    }
+
+    fun onSuccess(data: List<UserResponse>) {
+        userAdapter.initUserData(data)
+        binding.apply {
+            loadingBar.visibility = View.GONE
+            message.visibility = View.GONE
+            rvUsers.visibility = View.VISIBLE
+        }
+    }
+
+    fun onFailed(error: String?) {
+        binding.message.visibility = View.VISIBLE
+        //user not found
+        if (error == null) {
+            binding.imgMsg.apply {
+                setImageResource(R.drawable.ic_undraw_not_found__60_pq)
+                visibility = View.VISIBLE
+            }
+            binding.msgHeader.apply {
+                text = resources.getString(R.string.user_not_found)
+                visibility = View.VISIBLE
+            }
+            binding.msgTitle.visibility = View.GONE
+        } else {
+            //error message
+            MaterialAlertDialogBuilder(this)
+                .setTitle(resources.getString(R.string.oops))
+                .setMessage(error)
+                .show()
+        }
+        binding.loadingBar.visibility = View.GONE
+        binding.rvUsers.visibility = View.GONE
+    }
+
+    fun onLoading() {
+        binding.apply {
+            loadingBar.visibility = View.VISIBLE
+            message.visibility = View.GONE
+            rvUsers.visibility = View.GONE
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -73,44 +106,24 @@ class MainActivity : AppCompatActivity() {
         inflater.inflate(R.menu.option_menu, menu)
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.setting_menu -> {
                 val i = Intent(this, SettingActivity::class.java)
                 startActivity(i)
-                return true
+                true
             }
-            else -> return true
+            R.id.fav_menu -> {
+                val i = Intent(this, FavoriteUserActivity::class.java)
+                startActivity(i)
+                true
+            }
+            else -> true
         }
     }
 
-    private fun searchUser(){
-        binding.searchView.setOnKeyListener { _, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN &&
-                keyCode == KeyEvent.KEYCODE_ENTER
-            ) {
-                if (binding.searchView.text?.length == 0) {
-                    SweetAlertDialog(this,SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText(R.string.search_blank)
-                        .show()
-                    return@setOnKeyListener false
-                } else {
-                    binding.searchView.apply {
-                        this.clearFocus()
-                        val imm: InputMethodManager = getSystemService(
-                            INPUT_METHOD_SERVICE
-                        ) as InputMethodManager
-                        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
-                    }
-                    viewModel.getSearch(binding.searchView.text.toString())
-                    return@setOnKeyListener true
-                }
-            }
-            return@setOnKeyListener false
-        }
-    }
-
-    private fun showRecyclerList(){
+    private fun showRecyclerList() {
         binding.rvUsers.apply {
             adapter = userAdapter
             if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -118,14 +131,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 layoutManager = LinearLayoutManager(context)
             }
-            isNestedScrollingEnabled = false
         }
-    }
-
-    private fun sweetAlert(context: Context, message: String){
-        SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
-            .setTitleText("Oops...")
-            .setContentText( message)
-            .show()
     }
 }
