@@ -16,7 +16,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "PERSONAL_TOKEN", '"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"')
+        buildConfigField("String", "PERSONAL_TOKEN", '"YOUR_PERSONAL_TOKEN"')
     }
 
     buildTypes {
