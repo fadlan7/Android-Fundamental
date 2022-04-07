@@ -40,6 +40,9 @@
     <string name="no_following">Didn\'t follow anyone</string>
     <string name="set_theme_menu">Set Theme</string>
     <string name="fav_user_page">Favorite User</string>
+    <string name="set_theme">Set theme</string>
+    <string name="added_user_to_fav">Successful added %s to favorite list</string>
+    <string name="success_remove_user_from_fav">Successful remove %s from favorite list</string>
 
 </resources>
 

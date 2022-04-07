@@ -20,6 +20,6 @@ class UserDiffCallback(private val mOldUserList: List<UserResponse>, private val
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldEmployee = mOldUserList[oldItemPosition]
         val newEmployee = mNewUserList[newItemPosition]
-        return oldEmployee.login == newEmployee.login
+        return oldEmployee.login == newEmployee.login && oldEmployee.avatar == newEmployee.avatar
     }
 }

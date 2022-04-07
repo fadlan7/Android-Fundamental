@@ -14,6 +14,7 @@ object Constanta {
         R.string.tab_text_2
     )
 
-    const val DATA_STORE_NAME = "USER_DATASTORE"
-    val DATA_STORE_PREF_THEME_KEY = booleanPreferencesKey("THEME_PREF_KEY")
+    val THEME_KEY = booleanPreferencesKey("THEME_SETTING")
+
+    const val duration: Long = 1500
 }

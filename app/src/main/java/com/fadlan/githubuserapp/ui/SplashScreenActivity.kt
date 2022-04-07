@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.fadlan.githubuserapp.MainActivity
 import com.fadlan.githubuserapp.R
 import com.fadlan.githubuserapp.databinding.ActivitySplashScreenBinding
+import com.fadlan.githubuserapp.helper.Constanta.duration
 import com.fadlan.githubuserapp.ui.setting.SettingPreferences
 import com.fadlan.githubuserapp.ui.setting.SettingViewModel
 import com.fadlan.githubuserapp.ui.setting.SettingViewModelFactory
@@ -18,7 +19,6 @@ import com.google.android.material.switchmaterial.SwitchMaterial
 class SplashScreenActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashScreenBinding
-    private val duration: Long = 1500
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

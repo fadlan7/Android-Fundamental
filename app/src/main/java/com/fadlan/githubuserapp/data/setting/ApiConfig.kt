@@ -10,8 +10,6 @@ import java.util.concurrent.TimeUnit
 
 class ApiConfig {
     companion object {
-//        PERSONAL_TOKEN = "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"
-
         fun getApiService(): ApiService {
             val client = OkHttpClient.Builder()
                 .addInterceptor {

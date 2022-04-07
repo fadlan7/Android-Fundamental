@@ -4,25 +4,29 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.fadlan.githubuserapp.data.model.UserResponse
 import com.fadlan.githubuserapp.databinding.UsersListBinding
 import com.fadlan.githubuserapp.helper.Constanta.EXTRA_USER
+import com.fadlan.githubuserapp.helper.UserDiffCallback
 import com.fadlan.githubuserapp.ui.detail.UserDetailActivity
 
-class UserListAdapter() :
+class UserListAdapter :
     RecyclerView.Adapter<UserListAdapter.ListViewHolder>() {
 
     private var userData = ArrayList<UserResponse>()
 
-    @SuppressLint("NotifyDataSetChanged")
     fun initUserData(data: List<UserResponse>) {
         userData.apply {
             clear()
             addAll(data)
         }
-        notifyDataSetChanged()
+
+        val diffCallback = UserDiffCallback(this.userData, data)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ListViewHolder {

@@ -25,7 +25,7 @@ class SettingActivity : AppCompatActivity() {
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.title = "Set theme"
+        supportActionBar?.title = getString(R.string.set_theme)
 
         val pref = SettingPreferences.getInstance(dataStore)
         val viewModel = ViewModelProvider(this, SettingViewModelFactory(pref))[SettingViewModel::class.java]
