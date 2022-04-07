@@ -18,7 +18,6 @@ import com.fadlan.githubuserapp.data.model.UserResponse
 import com.fadlan.githubuserapp.databinding.ActivityUserDetailBinding
 import com.fadlan.githubuserapp.helper.Constanta.EXTRA_USER
 import com.fadlan.githubuserapp.helper.Constanta.TAB_TITLES
-import com.fadlan.githubuserapp.helper.DateHelper
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -98,11 +97,12 @@ class UserDetailActivity : AppCompatActivity() {
                 }
 
                 fabLove.setOnClickListener {
+                    val uName = data.login
                     if (data.isFavorite == true) {
                         MaterialAlertDialogBuilder(this@UserDetailActivity)
                             .setTitle(getString(R.string.remove_user))
                             .setCancelable(true)
-                            .setMessage("Are you sure to remove ${data.login} from favorite list?")
+                            .setMessage("Are you sure to remove ${uName} from favorite list?")
                             .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
                             .setPositiveButton(getString(R.string.accept)) { _, _ ->
                                 data.isFavorite = false
@@ -115,7 +115,7 @@ class UserDetailActivity : AppCompatActivity() {
                                 )
                                 Toast.makeText(
                                     this@UserDetailActivity,
-                                    "Successfull remove ${data.login} from favorite list",
+                                    String.format(getString(R.string.success_remove_user_from_fav), uName),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -139,7 +139,7 @@ class UserDetailActivity : AppCompatActivity() {
 
                         Toast.makeText(
                             this@UserDetailActivity,
-                            "Successfull added ${data.login} to favorite list",
+                            String.format(getString(R.string.added_user_to_fav), uName),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
